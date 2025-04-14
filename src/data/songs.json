@@ -1,0 +1,17 @@
+[
+    {
+      "id": 1,
+      "title": "Sunset Drive",
+      "artist": "Lo-Fi Beats",
+      "cover": "/assets/cover1.jpg",
+      "audio": "/assets/song1.mp3"
+    },
+    {
+      "id": 2,
+      "title": "Chill Vibes",
+      "artist": "Dreamscape",
+      "cover": "/assets/cover2.jpg",
+      "audio": "/assets/song2.mp3"
+    }
+  ]
+  
