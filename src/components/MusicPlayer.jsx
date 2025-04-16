@@ -2,6 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Howl } from 'howler';
 import anime from 'animejs';
 // import anime from 'animejs/lib/anime.es.js';
+// import AlbumArt from './AlbumArt';
+
+// <AlbumArt isPlaying={isPlaying} />
+
 
 
 export default function MusicPlayer({ song }) {
