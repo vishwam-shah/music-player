@@ -1,4 +1,6 @@
-"use client";  // Add this to ensure the component runs on the client side
+
+"use client";
+
 
 import React, { useContext } from 'react';
 import { MusicContext } from '../context/MusicContext';

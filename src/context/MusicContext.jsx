@@ -1,5 +1,6 @@
-// src/context/MusicContext.jsx
-"use client"
+
+"use client";
+
 
 import React, { createContext, useState } from 'react';
 

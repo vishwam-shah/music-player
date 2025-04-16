@@ -1,42 +1,24 @@
-'use client';
+import React from 'react';
 
-import { useContext } from 'react';
-import { FavoritesContext } from '../context/FavoritesContext';
-import songs from '../data/songs.json';
-import { motion } from 'framer-motion';
-
-export default function TrackList({ onSelect }) {
-  const { toggleFavorite, isFavorite } = useContext(FavoritesContext);
+export default function TrackList({ songs, onSelect }) {
+  const handleClick = (song) => {
+    onSelect(song);  // This will set the selected song
+  };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+    <div className="track-list grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {songs.map((song, index) => (
-        <motion.div
+        <div
           key={index}
-          className="bg-white/10 backdrop-blur-md p-4 rounded-xl cursor-pointer hover:scale-105 transition shadow-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
-          onClick={() => onSelect(song)}
+          className="track-card p-4 m-2 bg-indigo-800 rounded-lg cursor-pointer transition-transform transform hover:scale-105"
+          onClick={() => handleClick(song)}  // Make sure this triggers onSelect
         >
-          <img
-            src={song.cover}
-            alt={song.title}
-            className="w-full h-40 object-cover rounded-lg"
-          />
-          <h3 className="text-white font-semibold mt-2">{song.title}</h3>
-          <p className="text-indigo-200 text-sm">{song.artist}</p>
-
-          <button
-            className="mt-2 text-pink-400 text-sm"
-            onClick={(e) => {
-              e.stopPropagation(); // prevent click from selecting song
-              toggleFavorite(song);
-            }}
-          >
-            {isFavorite(song) ? '💖 Remove from Favorites' : '🤍 Add to Favorites'}
-          </button>
-        </motion.div>
+          <img src={song.coverImage} alt={song.title} className="w-full h-48 object-cover rounded-lg" />
+          <div className="mt-2 text-white">
+            <h3 className="text-lg font-semibold">{song.title}</h3>
+            <p className="text-sm">{song.artist}</p>
+          </div>
+        </div>
       ))}
     </div>
   );
