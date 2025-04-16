@@ -1,9 +1,9 @@
 // src/App.js
 
 import React from 'react';
-import { MusicProvider } from './context/MusicContext';  // Import the MusicProvider
-import SearchBar from './components/SearchBar';
-import SongList from './components/SongList';
+import { MusicProvider } from '../context/MusicContext';  // Import the MusicProvider
+import SearchBar from '../components/SearchBar';
+import SongList from '../components/SongList'; // Import the SongList component
 
 function App() {
   return (
