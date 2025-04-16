@@ -1,4 +1,5 @@
 // src/components/SongList.js
+"use client";
 
 import React, { useContext } from 'react';
 import { MusicContext } from '../context/MusicContext';

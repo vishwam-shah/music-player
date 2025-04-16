@@ -1,17 +1,352 @@
 [
-    {
-      "id": 1,
-      "title": "Sunset Drive",
-      "artist": "Lo-Fi Beats",
-      "cover": "/assets/cover1.jpg",
-      "audio": "/assets/song1.mp3"
-    },
-    {
-      "id": 2,
-      "title": "Chill Vibes",
-      "artist": "Dreamscape",
-      "cover": "/assets/cover2.jpg",
-      "audio": "/assets/song2.mp3"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "title": "Chill Vibes",
+    "artist": "Dreamscape",
+    "cover": "/assets/cover1.jpg",
+    "audio": "/assets/song1.mp3"
+  },
+  {
+    "id": 2,
+    "title": "Sunset Drive",
+    "artist": "Neon Palms",
+    "cover": "/assets/cover2.jpg",
+    "audio": "/assets/song2.mp3"
+  },
+  {
+    "id": 3,
+    "title": "Ocean Breeze",
+    "artist": "Waveform",
+    "cover": "/assets/cover3.jpg",
+    "audio": "/assets/song3.mp3"
+  },
+  {
+    "id": 4,
+    "title": "Night Sky",
+    "artist": "Lunaria",
+    "cover": "/assets/cover4.jpg",
+    "audio": "/assets/song4.mp3"
+  },
+  {
+    "id": 5,
+    "title": "City Lights",
+    "artist": "Midnight Avenue",
+    "cover": "/assets/cover5.jpg",
+    "audio": "/assets/song5.mp3"
+  },
+  {
+    "id": 6,
+    "title": "Lo-Fi Dreams",
+    "artist": "Sleeploop",
+    "cover": "/assets/cover6.jpg",
+    "audio": "/assets/song6.mp3"
+  },
+  {
+    "id": 7,
+    "title": "Golden Hour",
+    "artist": "Aura Bloom",
+    "cover": "/assets/cover7.jpg",
+    "audio": "/assets/song7.mp3"
+  },
+  {
+    "id": 8,
+    "title": "Waves & Wind",
+    "artist": "Coastal Beats",
+    "cover": "/assets/cover8.jpg",
+    "audio": "/assets/song8.mp3"
+  },
+  {
+    "id": 9,
+    "title": "Jazz & Rain",
+    "artist": "Late Lounge",
+    "cover": "/assets/cover9.jpg",
+    "audio": "/assets/song9.mp3"
+  },
+  {
+    "id": 10,
+    "title": "Electric Summer",
+    "artist": "Synthline",
+    "cover": "/assets/cover10.jpg",
+    "audio": "/assets/song10.mp3"
+  },
+  {
+    "id": 11,
+    "title": "Mellow Moves",
+    "artist": "Flowtime",
+    "cover": "/assets/cover11.jpg",
+    "audio": "/assets/song11.mp3"
+  },
+  {
+    "id": 12,
+    "title": "Cosmic Love",
+    "artist": "Starfall",
+    "cover": "/assets/cover12.jpg",
+    "audio": "/assets/song12.mp3"
+  },
+  {
+    "id": 13,
+    "title": "Velvet Nights",
+    "artist": "Nostalgia Noir",
+    "cover": "/assets/cover13.jpg",
+    "audio": "/assets/song13.mp3"
+  },
+  {
+    "id": 14,
+    "title": "Aurora Chill",
+    "artist": "Skyshine",
+    "cover": "/assets/cover14.jpg",
+    "audio": "/assets/song14.mp3"
+  },
+  {
+    "id": 15,
+    "title": "Lost in Tokyo",
+    "artist": "Night Metro",
+    "cover": "/assets/cover15.jpg",
+    "audio": "/assets/song15.mp3"
+  },
+  {
+    "id": 16,
+    "title": "Cloud Surfing",
+    "artist": "Drift Lab",
+    "cover": "/assets/cover16.jpg",
+    "audio": "/assets/song16.mp3"
+  },
+  {
+    "id": 17,
+    "title": "Moonlit",
+    "artist": "Softspace",
+    "cover": "/assets/cover17.jpg",
+    "audio": "/assets/song17.mp3"
+  },
+  {
+    "id": 18,
+    "title": "Calm Currents",
+    "artist": "Tideforms",
+    "cover": "/assets/cover18.jpg",
+    "audio": "/assets/song18.mp3"
+  },
+  {
+    "id": 19,
+    "title": "Deep Sleep",
+    "artist": "Zenzone",
+    "cover": "/assets/cover19.jpg",
+    "audio": "/assets/song19.mp3"
+  },
+  {
+    "id": 20,
+    "title": "Midnight Stroll",
+    "artist": "Hollow Steps",
+    "cover": "/assets/cover20.jpg",
+    "audio": "/assets/song20.mp3"
+  },
+  {
+    "id": 21,
+    "title": "Silent Echo",
+    "artist": "Aftertouch",
+    "cover": "/assets/cover21.jpg",
+    "audio": "/assets/song21.mp3"
+  },
+  {
+    "id": 22,
+    "title": "Retro Dream",
+    "artist": "Pixel Pulse",
+    "cover": "/assets/cover22.jpg",
+    "audio": "/assets/song22.mp3"
+  },
+  {
+    "id": 23,
+    "title": "Fade Into Blue",
+    "artist": "Color Drift",
+    "cover": "/assets/cover23.jpg",
+    "audio": "/assets/song23.mp3"
+  },
+  {
+    "id": 24,
+    "title": "Palm Shadows",
+    "artist": "Sunbeam Circuit",
+    "cover": "/assets/cover24.jpg",
+    "audio": "/assets/song24.mp3"
+  },
+  {
+    "id": 25,
+    "title": "Misty Morning",
+    "artist": "Dawnscape",
+    "cover": "/assets/cover25.jpg",
+    "audio": "/assets/song25.mp3"
+  },
+  {
+    "id": 26,
+    "title": "Indigo Flow",
+    "artist": "Fadeform",
+    "cover": "/assets/cover26.jpg",
+    "audio": "/assets/song26.mp3"
+  },
+  {
+    "id": 27,
+    "title": "Mirror Lake",
+    "artist": "Reflective Beats",
+    "cover": "/assets/cover27.jpg",
+    "audio": "/assets/song27.mp3"
+  },
+  {
+    "id": 28,
+    "title": "Synthwave Soul",
+    "artist": "Neon Spirit",
+    "cover": "/assets/cover28.jpg",
+    "audio": "/assets/song28.mp3"
+  },
+  {
+    "id": 29,
+    "title": "Digital Rain",
+    "artist": "CodeLight",
+    "cover": "/assets/cover29.jpg",
+    "audio": "/assets/song29.mp3"
+  },
+  {
+    "id": 30,
+    "title": "Vintage Light",
+    "artist": "Retrophile",
+    "cover": "/assets/cover30.jpg",
+    "audio": "/assets/song30.mp3"
+  },
+  {
+    "id": 31,
+    "title": "Subtle Motion",
+    "artist": "Vibe Studio",
+    "cover": "/assets/cover31.jpg",
+    "audio": "/assets/song31.mp3"
+  },
+  {
+    "id": 32,
+    "title": "Dusk Horizon",
+    "artist": "Twilight Sound",
+    "cover": "/assets/cover32.jpg",
+    "audio": "/assets/song32.mp3"
+  },
+  {
+    "id": 33,
+    "title": "Zen Lounge",
+    "artist": "Peacepad",
+    "cover": "/assets/cover33.jpg",
+    "audio": "/assets/song33.mp3"
+  },
+  {
+    "id": 34,
+    "title": "Time Capsule",
+    "artist": "Memory Lane",
+    "cover": "/assets/cover34.jpg",
+    "audio": "/assets/song34.mp3"
+  },
+  {
+    "id": 35,
+    "title": "Digital Romance",
+    "artist": "CyberLove",
+    "cover": "/assets/cover35.jpg",
+    "audio": "/assets/song35.mp3"
+  },
+  {
+    "id": 36,
+    "title": "Parallel Skies",
+    "artist": "Altum",
+    "cover": "/assets/cover36.jpg",
+    "audio": "/assets/song36.mp3"
+  },
+  {
+    "id": 37,
+    "title": "Stargazer",
+    "artist": "Nova Drift",
+    "cover": "/assets/cover37.jpg",
+    "audio": "/assets/song37.mp3"
+  },
+  {
+    "id": 38,
+    "title": "After Sunset",
+    "artist": "Evening Echo",
+    "cover": "/assets/cover38.jpg",
+    "audio": "/assets/song38.mp3"
+  },
+  {
+    "id": 39,
+    "title": "Golden Reflection",
+    "artist": "Soulwave",
+    "cover": "/assets/cover39.jpg",
+    "audio": "/assets/song39.mp3"
+  },
+  {
+    "id": 40,
+    "title": "Quiet Storm",
+    "artist": "Ambient Bloom",
+    "cover": "/assets/cover40.jpg",
+    "audio": "/assets/song40.mp3"
+  },
+  {
+    "id": 41,
+    "title": "Crimson Cloud",
+    "artist": "Sky High",
+    "cover": "/assets/cover41.jpg",
+    "audio": "/assets/song41.mp3"
+  },
+  {
+    "id": 42,
+    "title": "Frozen Light",
+    "artist": "Winter Muse",
+    "cover": "/assets/cover42.jpg",
+    "audio": "/assets/song42.mp3"
+  },
+  {
+    "id": 43,
+    "title": "Echo Flow",
+    "artist": "Reverb Room",
+    "cover": "/assets/cover43.jpg",
+    "audio": "/assets/song43.mp3"
+  },
+  {
+    "id": 44,
+    "title": "Color Spectrum",
+    "artist": "Prism Shift",
+    "cover": "/assets/cover44.jpg",
+    "audio": "/assets/song44.mp3"
+  },
+  {
+    "id": 45,
+    "title": "Moon Chill",
+    "artist": "Lunar Aura",
+    "cover": "/assets/cover45.jpg",
+    "audio": "/assets/song45.mp3"
+  },
+  {
+    "id": 46,
+    "title": "Dream State",
+    "artist": "Lucid Drive",
+    "cover": "/assets/cover46.jpg",
+    "audio": "/assets/song46.mp3"
+  },
+  {
+    "id": 47,
+    "title": "Future Groove",
+    "artist": "Tomorrow Tone",
+    "cover": "/assets/cover47.jpg",
+    "audio": "/assets/song47.mp3"
+  },
+  {
+    "id": 48,
+    "title": "Lo-Fi Sunshine",
+    "artist": "Soft Keys",
+    "cover": "/assets/cover48.jpg",
+    "audio": "/assets/song48.mp3"
+  },
+  {
+    "id": 49,
+    "title": "Tropic Drift",
+    "artist": "Sunset Studio",
+    "cover": "/assets/cover49.jpg",
+    "audio": "/assets/song49.mp3"
+  },
+  {
+    "id": 50,
+    "title": "Rainroom",
+    "artist": "Hushland",
+    "cover": "/assets/cover50.jpg",
+    "audio": "/assets/song50.mp3"
+  }
+]
