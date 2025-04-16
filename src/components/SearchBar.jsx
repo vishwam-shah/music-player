@@ -1,4 +1,4 @@
-// src/components/SearchBar.js
+
 "use client";
 
 import React, { useContext } from 'react';
@@ -12,7 +12,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-4 bg-black text-black">
       <input
         type="text"
         value={searchQuery}
