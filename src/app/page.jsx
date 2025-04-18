@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import anime from 'animejs/lib/anime.es.js';
-
 import MusicPlayer from "../components/MusicPlayer";
 import TrackList from "../components/TrackList";
 import songsData from '../data/songs.json';
@@ -10,7 +9,8 @@ export default function Home() {
   const [songs, setSongs] = useState([]);
   const [selectedSong, setSelectedSong] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');  // Search query state
+  const [searchQuery, setSearchQuery] = useState('');
+  const containerRef = useRef(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -19,26 +19,24 @@ export default function Home() {
     }, 500);
   }, []);
 
-  // Filter songs based on search query
-  const filteredSongs = songs.filter(song => 
-    song.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+  const filteredSongs = songs.filter(song =>
+    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     song.artist.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   useEffect(() => {
-    // Animate background gradient when a song is selected
-    if (selectedSong) {
-      anime({
-        targets: 'body',
-        background: [
-          { value: 'linear-gradient(to bottom right, #6a11cb, #2575fc)', duration: 1500 },
-          { value: 'linear-gradient(to bottom right, #FF5F6D, #FFC371)', duration: 1500 },
-        ],
-        easing: 'easeInOutQuad',
-        loop: true,
-      });
+    // Animate background change when a song is selected
+    anime({
+      targets: 'body',
+      background: selectedSong
+        ? 'linear-gradient(to bottom right, #FF5F6D, #FFC371)'
+        : 'linear-gradient(to bottom right, #6a11cb, #2575fc)',
+      easing: 'easeInOutQuad',
+      duration: 1000,
+    });
 
-      // Fade-in animation for title and artist
+    // Animate song title and artist
+    if (selectedSong) {
       anime({
         targets: '.song-title',
         opacity: [0, 1],
@@ -55,19 +53,15 @@ export default function Home() {
         duration: 800,
         delay: 200,
       });
-    } else {
-      anime({
-        targets: 'body',
-        background: 'linear-gradient(to bottom right, #6a11cb, #2575fc)',
-        easing: 'easeInOutQuad',
-        duration: 1000,
-      });
     }
   }, [selectedSong]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 p-6">
-      {/* Search Bar with Fade-in Animation */}
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 p-6 scroll-container"
+    >
+      {/* Search Bar */}
       <div className="mb-4">
         <input
           type="text"
@@ -78,6 +72,7 @@ export default function Home() {
         />
       </div>
 
+      {/* Main Content */}
       {loading ? (
         <p className="text-white">Loading songs...</p>
       ) : filteredSongs.length === 0 ? (
