@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Howl } from 'howler';
+import { Play, Pause, SkipForward, SkipBack } from 'lucide-react';
 import anime from 'animejs';
 
 export default function MusicPlayer({ song }) {
@@ -8,7 +9,6 @@ export default function MusicPlayer({ song }) {
   const [progress, setProgress] = useState(0);
   const intervalRef = useRef(null);
   const progressRef = useRef(null);
-  const playBtnRef = useRef(null);
 
   useEffect(() => {
     if (song?.audio) {
@@ -30,23 +30,7 @@ export default function MusicPlayer({ song }) {
     };
   }, [song]);
 
-  const animateProgress = (value) => {
-    anime({
-      targets: progressRef.current,
-      width: `${value}%`,
-      easing: 'linear',
-      duration: 200,
-    });
-  };
-
   const handlePlayPause = () => {
-    anime({
-      targets: playBtnRef.current,
-      scale: [1, 1.2, 1],
-      duration: 300,
-      easing: 'easeInOutQuad',
-    });
-
     if (!sound) return;
 
     if (isPlaying) {
@@ -57,81 +41,44 @@ export default function MusicPlayer({ song }) {
       intervalRef.current = setInterval(() => {
         const newProgress = (sound.seek() / sound.duration()) * 100;
         setProgress(newProgress);
-        animateProgress(newProgress);
+        anime({
+          targets: progressRef.current,
+          width: `${newProgress}%`,
+          duration: 200,
+          easing: 'linear',
+        });
       }, 500);
     }
 
     setIsPlaying(!isPlaying);
   };
 
-  const handleNext = () => {
-    // Add logic to go to next song (based on your app context)
-    alert("Next song clicked");
-  };
-
-  const handlePrev = () => {
-    // Add logic to go to previous song (based on your app context)
-    alert("Previous song clicked");
-  };
-
   return (
-    <>
-      {/* Center Screen Video */}
-      <div className="fixed inset-0 flex items-center justify-center z-0 pointer-events-none">
-        {/* <video
-          src="/videos/vinyl_rotation.mp4"
-          autoPlay
-          muted
-          loop
-          className="w-[400px] h-[400px] object-cover rounded-full opacity-30"
-        /> */}
-        <img
-              src="/images/Vinyl-record1.png" // Make sure this image exists in /public/images
-              alt="Vinyl Player"
-              className="w-120 h-120 object-contain"
-            />
-      </div>
-
-      {/* Music Player UI */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-zinc-900 p-4 shadow-lg z-10">
+    <div className="fixed bottom-0 left-0 right-0 bg-zinc-800 p-4 text-white z-50">
+      <div className="flex items-center gap-4 mb-2">
+        <img src={song?.cover} alt={song?.title} className="w-14 h-14 rounded-lg" />
+        {/* <div className="relative flex justify-center items-center w-14 h-14 z-10 mb-4">
+           <img
+               src={song?.cover} // Make sure this image exists in /public/images
+               alt="Vinyl Player"
+               className="w-120 h-120 object-contain"
+             />
+           </div> */}
+        <div className="flex-1">
+          <div className="font-bold">{song?.title}</div>
+          <div className="text-sm">{song?.artist}</div>
+        </div>
         <div className="flex items-center gap-4">
-          <img
-            src={song?.cover}
-            alt={song?.title}
-            className="w-16 h-16 object-cover rounded-lg"
-          />
-          <div className="flex-1">
-            <h4 className="text-md font-bold">{song?.title}</h4>
-            <p className="text-sm text-gray-500 dark:text-gray-300">{song?.artist}</p>
-
-            {/* Controls Above Progress Bar */}
-            <div className="flex items-center justify-center gap-4 my-2">
-              <button onClick={handlePrev} className="text-white bg-gray-700 px-3 py-1 rounded-full hover:bg-gray-600">
-                ⏮
-              </button>
-              <button
-                ref={playBtnRef}
-                onClick={handlePlayPause}
-                className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
-              >
-                {isPlaying ? 'Pause' : 'Play'}
-              </button>
-              <button onClick={handleNext} className="text-white bg-gray-700 px-3 py-1 rounded-full hover:bg-gray-600">
-                ⏭
-              </button>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="h-2 bg-gray-300 dark:bg-zinc-700 mt-1 rounded-full overflow-hidden">
-              <div
-                ref={progressRef}
-                className="h-full bg-blue-500 transition-all"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div>
+          <SkipBack className="cursor-pointer" />
+          <button onClick={handlePlayPause} className="bg-white text-black p-2 rounded-full">
+            {isPlaying ? <Pause /> : <Play />}
+          </button>
+          <SkipForward className="cursor-pointer" />
         </div>
       </div>
-    </>
+      <div className="w-full h-2 bg-gray-600 rounded-full overflow-hidden">
+        <div ref={progressRef} className="bg-green-500 h-full w-0"></div>
+      </div>
+    </div>
   );
 }
