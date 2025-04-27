@@ -55,30 +55,31 @@ export default function MusicPlayer({ song }) {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-zinc-800 p-4 text-white z-50">
-      <div className="flex items-center gap-4 mb-2">
-        <img src={song?.cover} alt={song?.title} className="w-14 h-14 rounded-lg" />
-        {/* <div className="relative flex justify-center items-center w-14 h-14 z-10 mb-4">
-           <img
-               src={song?.cover} // Make sure this image exists in /public/images
-               alt="Vinyl Player"
-               className="w-120 h-120 object-contain"
-             />
-           </div> */}
-        <div className="flex-1">
-          <div className="font-bold">{song?.title}</div>
-          <div className="text-sm">{song?.artist}</div>
-        </div>
-        <div className="flex items-center gap-4">
-          <SkipBack className="cursor-pointer" />
-          <button onClick={handlePlayPause} className="bg-white text-black p-2 rounded-full">
-            {isPlaying ? <Pause /> : <Play />}
-          </button>
-          <SkipForward className="cursor-pointer" />
-        </div>
-      </div>
-      <div className="w-full h-2 bg-gray-600 rounded-full overflow-hidden">
-        <div ref={progressRef} className="bg-green-500 h-full w-0"></div>
+  <div className="flex items-center justify-between mb-2">
+    {/* Left side: Album art + Now Playing info */}
+    <div className="flex items-center gap-4">
+      <img src={song?.cover} alt={song?.title} className="w-14 h-14 rounded-lg" />
+      <div className="flex flex-col gap-1">
+        <div className="text-sm text-gray-400">Now Playing</div>
+        <div className="font-bold">{song?.title}</div>
+        <div className="text-sm">{song?.artist}</div>
       </div>
     </div>
+
+    {/* Center: Playback controls */}
+    <div className="flex items-center justify-center gap-6">
+      <SkipBack className="cursor-pointer" />
+      <button onClick={handlePlayPause} className="bg-white text-black p-2 rounded-full cursor-pointer">
+        {isPlaying ? <Pause /> : <Play />}
+      </button>
+      <SkipForward className="cursor-pointer" />
+    </div>
+  </div>
+
+  {/* Progress bar */}
+  <div className="w-full h-2 bg-gray-600 rounded-full overflow-hidden">
+    <div ref={progressRef} className="bg-green-500 h-full w-0"></div>
+  </div>
+</div>
   );
 }
