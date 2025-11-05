@@ -5,6 +5,7 @@ import EnhancedSidebar from '../components/EnhancedSidebar';
 import EnhancedHeader from '../components/EnhancedHeader';
 import EnhancedTrackList from '../components/EnhancedTrackList';
 import EnhancedMusicPlayer from '../components/EnhancedMusicPlayer';
+import DeezerBrowser from '../components/DeezerBrowser';
 import songsData from '../data/songs.json';
 
 function AppContent() {
@@ -165,6 +166,9 @@ function AppContent() {
             <EnhancedTrackList songs={enhancedSongs} view={viewType} />
           </div>
         );
+
+      case 'deezer':
+        return <DeezerBrowser viewType={viewType} />;
 
       case 'favorites':
         return (

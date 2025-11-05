@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAudio } from '../context/AudioContext';
 import {
   Home, Search, Library, Heart, Clock, ListMusic, Plus,
-  Music, TrendingUp, Radio, Sparkles, Menu, X
+  Music, TrendingUp, Radio, Sparkles, Menu, X, Music2
 } from 'lucide-react';
 
 export default function EnhancedSidebar({ currentView, onViewChange }) {
@@ -19,6 +19,7 @@ export default function EnhancedSidebar({ currentView, onViewChange }) {
   ];
 
   const collections = [
+    { id: 'deezer', icon: Music2, label: 'Deezer Music', badge: null, color: 'text-orange-500' },
     { id: 'favorites', icon: Heart, label: 'Liked Songs', badge: favorites.length, color: 'text-pink-500' },
     { id: 'recent', icon: Clock, label: 'Recently Played', badge: recentlyPlayed.length, color: 'text-blue-500' },
     { id: 'trending', icon: TrendingUp, label: 'Trending', badge: null, color: 'text-green-500' },
