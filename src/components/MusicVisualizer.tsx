@@ -2,9 +2,9 @@
 import React, { useEffect, useRef } from 'react';
 import { useAudio } from '../context/AudioContext';
 
-export default function MusicVisualizer() {
-  const canvasRef = useRef(null);
-  const animationRef = useRef(null);
+const MusicVisualizer: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const animationRef = useRef<number | null>(null);
   const { isPlaying } = useAudio();
 
   useEffect(() => {
@@ -12,6 +12,7 @@ export default function MusicVisualizer() {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
     const bars = 64;
     let dataArray = new Array(bars).fill(0);
 
@@ -25,10 +26,8 @@ export default function MusicVisualizer() {
 
     const draw = () => {
       if (!isPlaying) {
-        // Smooth fade out when not playing
         dataArray = dataArray.map(val => val * 0.95);
       } else {
-        // Simulate audio bars with random values (since we don't have actual audio analysis)
         dataArray = dataArray.map((val, i) => {
           const target = Math.random() * 255;
           return val + (target - val) * 0.1;
@@ -45,7 +44,6 @@ export default function MusicVisualizer() {
         const x = i * barWidth;
         const y = canvas.height - barHeight;
 
-        // Create gradient for each bar
         const gradient = ctx.createLinearGradient(x, canvas.height, x, y);
         gradient.addColorStop(0, '#8b5cf6');
         gradient.addColorStop(0.5, '#ec4899');
@@ -54,7 +52,6 @@ export default function MusicVisualizer() {
         ctx.fillStyle = gradient;
         ctx.fillRect(x, y, barWidth - 2, barHeight);
 
-        // Add glow effect
         ctx.shadowBlur = 20;
         ctx.shadowColor = '#8b5cf6';
       });
@@ -66,17 +63,11 @@ export default function MusicVisualizer() {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
   }, [isPlaying]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="w-full h-full"
-      style={{ mixBlendMode: 'screen' }}
-    />
-  );
-}
+  return <canvas ref={canvasRef} className="w-full h-32" />;
+};
+
+export default MusicVisualizer;

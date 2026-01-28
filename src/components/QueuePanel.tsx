@@ -2,8 +2,13 @@
 import React from 'react';
 import { useAudio } from '../context/AudioContext';
 import { X, GripVertical, Play } from 'lucide-react';
+import type { Song } from '../context/AudioContext';
 
-export default function QueuePanel({ compact = false }) {
+interface QueuePanelProps {
+  compact?: boolean;
+}
+
+const QueuePanel: React.FC<QueuePanelProps> = ({ compact = false }) => {
   const { queue, currentIndex, removeFromQueue, clearQueue, loadSong } = useAudio();
 
   if (queue.length === 0) {
@@ -31,7 +36,7 @@ export default function QueuePanel({ compact = false }) {
       </div>
 
       <div className="space-y-2">
-        {queue.map((song, index) => (
+        {queue.map((song: Song, index: number) => (
           <div
             key={`${song.id}-${index}`}
             className={`group flex items-center gap-3 p-3 rounded-lg hover:bg-white/5 transition-all ${
@@ -58,34 +63,37 @@ export default function QueuePanel({ compact = false }) {
             </div>
 
             {/* Song Info */}
-            <div
-              className="flex-1 min-w-0 cursor-pointer"
-              onClick={() => loadSong(song, true)}
-            >
-              <p className={`font-medium truncate ${
-                index === currentIndex ? 'text-violet-400' : 'text-white'
-              }`}>
+            <div className="flex-1 min-w-0">
+              <div className="truncate font-medium text-white text-base">
                 {song.title}
-              </p>
-              <p className="text-sm text-gray-400 truncate">{song.artist}</p>
+              </div>
+              <div className="truncate text-gray-400 text-sm">
+                {song.artist}
+              </div>
             </div>
 
-            {/* Duration */}
-            <span className="text-sm text-gray-400">{song.duration || '3:45'}</span>
-
-            {/* Remove Button */}
+            {/* Remove from Queue */}
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                removeFromQueue(index);
-              }}
-              className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-400 transition-all"
+              onClick={() => removeFromQueue(index)}
+              className="text-gray-400 hover:text-red-500 transition-colors ml-2"
+              title="Remove from queue"
             >
-              <X size={18} />
+              <X size={16} />
+            </button>
+
+            {/* Play this song */}
+            <button
+              onClick={() => loadSong(song, index)}
+              className="text-gray-400 hover:text-violet-400 transition-colors ml-2"
+              title="Play this song"
+            >
+              <Play size={16} />
             </button>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
+
+export default QueuePanel;

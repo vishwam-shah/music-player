@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { Palette } from 'lucide-react';
 import { useTheme, ThemeVariant } from '../../context/ThemeContext';
@@ -45,13 +46,14 @@ const ThemeSwitcher: React.FC = () => {
         <Palette size={20} />
       </motion.button>
 
-      {isOpen && (
+      {isOpen && typeof window !== 'undefined' && createPortal(
         <>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40"
+            className="fixed inset-0"
+            style={{ zIndex: 9998 }}
             onClick={() => setIsOpen(false)}
           />
           <motion.div
@@ -59,11 +61,12 @@ const ThemeSwitcher: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-0 mt-2 p-3 rounded-2xl backdrop-blur-2xl border z-60 min-w-50"
+            className="fixed right-4 top-16 p-3 rounded-2xl backdrop-blur-2xl border min-w-50"
             style={{
               background: 'var(--color-surface)',
               borderColor: 'var(--color-border)',
               boxShadow: `0 20px 60px var(--color-shadow)`,
+              zIndex: 9999,
             }}
           >
             <h3
@@ -124,7 +127,8 @@ const ThemeSwitcher: React.FC = () => {
               ))}
             </div>
           </motion.div>
-        </>
+        </>,
+        document.body
       )}
     </div>
   );

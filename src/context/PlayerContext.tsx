@@ -190,8 +190,14 @@ export const PlayerProvider = ({ children }: PlayerProviderProps) => {
       setQueue(newQueue);
       setQueueIndex(index);
     }
-    // Setting currentSong triggers the useEffect which creates Howl and auto-plays
-    setCurrentSong(song);
+    // Always set a new object to force useEffect, even if song is the same
+    setCurrentSong(prev => {
+      if (!prev || prev.id !== song.id || prev.audio !== song.audio) {
+        return song;
+      }
+      // If same song, force a new object reference
+      return { ...song, _forceUpdate: Date.now() } as Song;
+    });
   }, []);
 
   const seek = useCallback((percent: number) => {

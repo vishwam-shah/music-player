@@ -1,11 +1,25 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
 
-export default function LyricsPanel({ song, currentTime, compact = false }) {
-  const containerRef = useRef(null);
-  const activeLineRef = useRef(null);
+interface LyricLine {
+  time: number;
+  text: string;
+}
 
-  // Sample lyrics data structure
+interface SongWithLyrics {
+  lyrics?: LyricLine[];
+}
+
+interface LyricsPanelProps {
+  song: SongWithLyrics | null;
+  currentTime: number;
+  compact?: boolean;
+}
+
+const LyricsPanel: React.FC<LyricsPanelProps> = ({ song, currentTime, compact = false }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const activeLineRef = useRef<HTMLParagraphElement | null>(null);
+
   const getLyrics = () => {
     if (!song || !song.lyrics) {
       return [
@@ -19,7 +33,6 @@ export default function LyricsPanel({ song, currentTime, compact = false }) {
 
   const lyrics = getLyrics();
 
-  // Find active lyric line
   const getActiveLyricIndex = () => {
     for (let i = lyrics.length - 1; i >= 0; i--) {
       if (currentTime >= lyrics[i].time) {
@@ -31,7 +44,6 @@ export default function LyricsPanel({ song, currentTime, compact = false }) {
 
   const activeLyricIndex = getActiveLyricIndex();
 
-  // Auto-scroll to active lyric
   useEffect(() => {
     if (activeLineRef.current && containerRef.current) {
       activeLineRef.current.scrollIntoView({
@@ -64,32 +76,26 @@ export default function LyricsPanel({ song, currentTime, compact = false }) {
   }
 
   return (
-    <div className="absolute inset-x-0 bottom-32 h-80 overflow-hidden">
-      <div
-        ref={containerRef}
-        className="h-full overflow-y-auto px-8 py-20 space-y-6 scrollbar-hide"
-        style={{
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
-        }}
-      >
+    <div ref={containerRef} className="absolute inset-x-0 bottom-32 h-80 overflow-hidden">
+      <div className="h-full overflow-y-auto px-8 py-20 space-y-6 scrollbar-hide">
         {lyrics.map((line, index) => (
           <p
             key={index}
             ref={index === activeLyricIndex ? activeLineRef : null}
-            className={`text-center transition-all duration-500 ${
+            className={`transition-all duration-300 ${
               index === activeLyricIndex
-                ? 'text-white text-3xl font-bold scale-110 gradient-text'
+                ? 'text-white text-2xl font-bold scale-110'
                 : index === activeLyricIndex - 1 || index === activeLyricIndex + 1
-                ? 'text-gray-300 text-2xl'
-                : 'text-gray-600 text-xl'
+                ? 'text-gray-300 text-lg'
+                : 'text-gray-500 text-base'
             }`}
           >
             {line.text}
           </p>
         ))}
-        <div className="h-40"></div>
       </div>
     </div>
   );
-}
+};
+
+export default LyricsPanel;
