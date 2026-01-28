@@ -1,26 +1,474 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dynamic theme colors - set by ThemeContext */
+  --color-background: #0a0a0a;
+  --color-surface: rgba(20, 20, 20, 0.9);
+  --color-surfaceHover: rgba(30, 30, 30, 0.95);
+  --color-primary: #8b5cf6;
+  --color-primaryHover: #7c3aed;
+  --color-secondary: #ec4899;
+  --color-accent: #06b6d4;
+  --color-text: #ffffff;
+  --color-textMuted: #9ca3af;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Legacy color support (for backward compatibility) */
+  --vinyl-black: #1a1a1a;
+  --vinyl-groove: #2d2d2d;
+  --warm-cream: #f5e6d3;
+  --burnt-orange: #cc5500;
+  --copper: #b87333;
+  --mahogany: #4a0e0e;
+  --amber-glow: #ffbf00;
+  --rust: #8b4513;
+  --walnut: #5d4037;
+  --gold-accent: #d4af37;
+  --needle-silver: #c0c0c0;
+  --label-red: #8b0000;
+
+  /* Map legacy to new */
+  --background: var(--color-background);
+  --foreground: var(--color-text);
+  --surface: var(--color-surface);
+  --surface-elevated: var(--color-surfaceHover);
+  --border: var(--color-border);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-textMuted);
+  --text-muted: var(--color-textMuted);
+  --accent: var(--color-primary);
+  --accent-hover: var(--color-primaryHover);
+  --success: #4a7c59;
+  --warning: #d4af37;
+  --danger: #8b0000;
+  
+  /* Additional color mappings */
+  --color-mahogany: var(--mahogany);
+  --color-amber-glow: var(--amber-glow);
+  --color-gold-accent: var(--gold-accent);
+  
+  /* Font families */
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Global cursor pointer for all interactive elements */
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+.cursor-pointer {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Better hover states for both light and dark modes */
+.hover\:bg-white\/5:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hover\:bg-white\/10:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode hover overrides */
+[style*="background: #f9fafb"] .hover\:bg-white\/5:hover,
+[style*="background: #ffffff"] .hover\:bg-white\/5:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[style*="background: #f9fafb"] .hover\:bg-white\/10:hover,
+[style*="background: #ffffff"] .hover\:bg-white\/10:hover {
+  background: rgba(0, 0, 0, 0.08);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Outfit', system-ui, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbar styling with theme colors */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+  border: 2px solid var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primaryHover);
+  box-shadow: 0 0 10px var(--color-primary);
+}
+
+/* Selection colors */
+::selection {
+  background: var(--color-primary);
+  color: var(--color-text);
+}
+
+/* =========== MODERN ANIMATIONS =========== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--color-primary);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--color-primary), 0 0 60px var(--color-primary);
+  }
+}
+
+@keyframes spin-vinyl {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-vinyl-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.vinyl-spinning {
+  animation: spin-vinyl 1.8s linear infinite;
+}
+
+.vinyl-spinning-slow {
+  animation: spin-vinyl-slow 3.6s linear infinite;
+}
+
+.vinyl-paused {
+  animation-play-state: paused;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* =========== VU METER ANIMATIONS =========== */
+
+@keyframes needle-bounce {
+  0%, 100% {
+    transform: rotate(-45deg);
+  }
+  50% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--amber-glow);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--amber-glow), 0 0 40px var(--burnt-orange);
+  }
+}
+
+.vu-glow {
+  box-shadow: 0 0 10px var(--amber-glow);
+}
+
+/* =========== RETRO BUTTON STYLES =========== */
+
+.retro-button {
+  background: var(--surface-elevated);
+  border: 2px solid var(--walnut);
+  color: var(--warm-cream);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 4px 0 var(--vinyl-black), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.retro-button:hover {
+  background: var(--walnut);
+  border-color: var(--copper);
+}
+
+.retro-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--vinyl-black), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.retro-button-primary {
+  background: var(--burnt-orange);
+  border-color: var(--copper);
+}
+
+.retro-button-primary:hover {
+  background: var(--accent-hover);
+}
+
+/* =========== CASSETTE TAPE STYLE =========== */
+
+.cassette-card {
+  background: var(--surface);
+  border: 3px solid var(--walnut);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cassette-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 30%;
+  transform: translateY(-50%);
+  background: var(--vinyl-groove);
+  border-radius: 4px;
+}
+
+.cassette-hole {
+  width: 24px;
+  height: 24px;
+  background: var(--vinyl-black);
+  border: 2px solid var(--walnut);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cassette-hole-left {
+  left: 25%;
+}
+
+.cassette-hole-right {
+  right: 25%;
+}
+
+/* =========== ALBUM SLEEVE STYLE =========== */
+
+.album-sleeve {
+  position: relative;
+  background: var(--surface);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.album-sleeve:hover {
+  transform: translateY(-8px);
+}
+
+.album-sleeve::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+/* =========== KNOB STYLES =========== */
+
+.retro-knob {
+  width: 48px;
+  height: 48px;
+  background: var(--surface-elevated);
+  border: 3px solid var(--walnut);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.4),
+    inset 0 2px 4px rgba(255,255,255,0.1),
+    inset 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.retro-knob::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 3px;
+  height: 12px;
+  background: var(--copper);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* =========== PROGRESS/SLIDER STYLES =========== */
+
+.retro-slider {
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--vinyl-groove);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.retro-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--copper);
+  border: 2px solid var(--gold-accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.retro-slider::-webkit-slider-thumb:hover {
+  background: var(--burnt-orange);
+}
+
+.retro-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--copper);
+  border: 2px solid var(--gold-accent);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* =========== EQ SLIDER STYLE =========== */
+
+.eq-slider {
+  appearance: none;
+  width: 8px;
+  height: 120px;
+  background: var(--vinyl-groove);
+  border-radius: 4px;
+  writing-mode: vertical-lr;
+  direction: rtl;
+}
+
+.eq-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 12px;
+  background: var(--copper);
+  border: 2px solid var(--gold-accent);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* =========== WOOD TEXTURE OVERLAY =========== */
+
+.wood-texture {
+  position: relative;
+}
+
+.wood-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* =========== UTILITY CLASSES =========== */
+
+.text-glow {
+  text-shadow: 0 0 10px var(--amber-glow);
+}
+
+.border-glow {
+  box-shadow: 0 0 10px var(--amber-glow);
+}
+
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

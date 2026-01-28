@@ -1,24 +1,27 @@
 'use client';
 
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
+import type { Song, FavoritesContextType } from '../types';
 
-export const FavoritesContext = createContext();
+export const FavoritesContext = createContext<FavoritesContextType | null>(null);
 
-export const FavoritesProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
+interface FavoritesProviderProps {
+  children: ReactNode;
+}
 
-  // Load from localStorage
+export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
+  const [favorites, setFavorites] = useState<Song[]>([]);
+
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('favorites')) || [];
+    const stored = JSON.parse(localStorage.getItem('favorites') || '[]');
     setFavorites(stored);
   }, []);
 
-  // Save to localStorage
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
-  const toggleFavorite = (song) => {
+  const toggleFavorite = (song: Song): void => {
     const exists = favorites.find((fav) => fav.title === song.title);
     if (exists) {
       setFavorites(favorites.filter((fav) => fav.title !== song.title));
@@ -27,7 +30,7 @@ export const FavoritesProvider = ({ children }) => {
     }
   };
 
-  const isFavorite = (song) =>
+  const isFavorite = (song: Song): boolean =>
     favorites.some((fav) => fav.title === song.title);
 
   return (
